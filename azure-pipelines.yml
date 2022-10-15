@@ -48,7 +48,7 @@ stages:
         inputs:
           buildType: 'current'
           artifactName: 'manifests'
-          targetPath: '$(Pipeline.Workspace)/manifests'
+          targetPath: '$(Build.SourcesDirectory)/manifests'
       - task: KubernetesManifest@0
         inputs:
           action: 'createSecret'
@@ -63,8 +63,8 @@ stages:
           kubernetesServiceConnection: 'aksdemo'
           namespace: 'default'
           manifests: 
-            $(Pipeline.Workspace)/manifests/deployment.yml
-            $(Pipeline.Workspace)/manifests/service.yml
+            $(Build.SourcesDirectory)/manifests/deployment.yml
+            $(Build.SourcesDirectory)/manifests/service.yml
 
         
 
