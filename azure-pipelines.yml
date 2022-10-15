@@ -29,7 +29,7 @@ stages:
           latest
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/kubernetes'
+        targetPath: '$(Build.SourcesDirectory)/kubernetes'
         artifact: 'manifests'
         publishLocation: 'pipeline'
 
