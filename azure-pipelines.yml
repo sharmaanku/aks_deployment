@@ -30,7 +30,7 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Build.SourcesDirectory)/kubernetes'
-        artifact: 'manifests'
+        artifact: 'kubernetes'
         publishLocation: 'pipeline'
 
 - stage: Deploy
@@ -47,8 +47,8 @@ stages:
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
-          artifactName: 'manifests'
-          targetPath: '$(Pipeline.Workspace)/manifests'
+          artifactName: 'kubernetes'
+          targetPath: '$(Pipeline.Workspace)/kubernetes'
       - task: KubernetesManifest@0
         inputs:
           action: 'createSecret'
@@ -63,8 +63,8 @@ stages:
           kubernetesServiceConnection: 'aksdemo'
           namespace: 'default'
           manifests: 
-            $(Build.SourcesDirectory)/manifests/deployment.yml
-            $(Build.SourcesDirectory)/manifests/service.yml
+            $(Build.SourcesDirectory)/kubernetes/deployment.yml
+            $(Build.SourcesDirectory)/kubernetes/service.yml
 
         
 
