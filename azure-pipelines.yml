@@ -63,8 +63,8 @@ stages:
           kubernetesServiceConnection: 'aksdemo'
           namespace: 'default'
           manifests: 
-            $(Pipeline.Workspace)/kubernetes/deployment.yml
-            $(Pipeline.Workspace)/kubernetes/service.yml
+            $(Pipeline.Workspace)/manifests/deployment.yml
+            $(Pipeline.Workspace)/manifests/service.yml
 
         
 
