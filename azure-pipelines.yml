@@ -18,7 +18,15 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      inputs:
+        containerRegistry: 'containerregistry'
+        command: 'build'
+        Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
+        tags: |
+          $(Build.BuildId)
+          latest
+    - task: Docker@2
+      displayName: Build and Push image
       inputs:
         containerRegistry: 'containerregistry'
         repository: '$(imagerepo)'
@@ -44,6 +52,12 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
+      - task: KubernetesManifest@0
+        inputs:
+          action: 'deploy'
+          kubernetesServiceConnection: 'aksdemo'
+          namespace: 'default'
+          manifests: 'manifet'
       - task: DownloadPipelineArtifact@2
         inputs:
           buildType: 'current'
